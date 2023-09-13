@@ -45,13 +45,13 @@ INSERT INTO solar_system_objects(body,mean_radius,mean_radius_rel,volume,volume_
 INSERT INTO solar_system_objects(body,mean_radius,mean_radius_rel,volume,volume_rel,mass,mass_rel,density,surface_gravity,surface_gravity_rel,type_of_object,shape) VALUES ('Tethys ',531.1,0.083,0.624,0.0006,0.6173,0.000103,0.984,0.145,0.015,'satellite of Saturn','round');
 INSERT INTO solar_system_objects(body,mean_radius,mean_radius_rel,volume,volume_rel,mass,mass_rel,density,surface_gravity,surface_gravity_rel,type_of_object,shape) VALUES ('Ceres ',476.2,0.076,0.437,0.0004,0.95,0.000159,2.077,0.27,0.0275,'dwarf planet belt asteroid','round');
 
-/**Average volume**/
+/**Average volume of the various solar system objects**/
 SELECT AVG(volume) FROM solar_system_objects;
 
-/**Highest mass**/
+/**Which solar system object has the highest mass?**/
 SELECT MAX(mass) FROM solar_system_objects;
 
-/**Round objects**/
+/**Which solar system objects are round?**/
 SELECT * FROM solar_system_objects WHERE shape IN ("round");
 
 /**What if we needed a column detailing which objects had the highest/lowest mass and how many objects were in each category?**/
@@ -65,7 +65,7 @@ END AS "mass_comparison" FROM solar_system_objects
 GROUP BY "mass_comparison";
 
 /** 4g max gravity. 0.2 min gravity. which objects have a safe surface gravity for humans? **/
-SELECT body FROM solar_system_objects WHERE (surface_gravity > 4 OR surface_gravity < 0.20);
+SELECT body FROM solar_system_objects WHERE (surface_gravity BETWEEN 0.20 AND 4);
 
 /**How many objects have a safe surface gravity for humans?**/
 SELECT COUNT(*),
@@ -84,9 +84,8 @@ GROUP BY volume HAVING volume < 100;
 SELECT body, volume FROM solar_system_objects desc
 GROUP BY volume HAVING volume > 100;
 
-
 /** safer terrestrial planets for humans based on surface gravity**/
-SELECT body FROM solar_system_objects WHERE (type_of_object = "planet (terrestrial)" AND surface_gravity < 4); 
+SELECT body FROM solar_system_objects WHERE (type_of_object = "planet (terrestrial)" AND surface_gravity BETWEEN 0.20 AND 4); 
 
 /**satellite planets**/
 SELECT body, type_of_object FROM solar_system_objects WHERE type_of_object LIKE "%satellite%"
