@@ -28,19 +28,19 @@ GROUP BY product, price
 ORDER BY price ASC LIMIT 1;
 
 #5. What is the total revenue for each product sold in January?
-SELECT product, ROUND(sUM(quantity) * price, 2) AS revenue
+SELECT product, ROUND(SUM(quantity) * price, 2) AS revenue
 FROM BIT_DB.JanSales Jan
 GROUP BY product;
 
 #6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
-SELECT product, SUM(quantity), ROUND(sUM(quantity) * price, 2) AS revenue
+SELECT product, SUM(quantity), ROUND(SUM(quantity) * price, 2) AS revenue
 FROM BIT_DB.FebSales feb
 WHERE location = "548 Lincoln St, Seattle, WA 98101"
 GROUP BY product;
 
 #7. How many customers ordered more than 2 products at a time, and what was the average amount spent for those customers?
 SELECT
-count(distinct cust.acctnum) AS customer_count,
+COUNT(distinct cust.acctnum) AS customer_count,
 ROUND(avg(quantity*price), 2) AS avg_spent
 FROM BIT_DB.FebSales Feb
 LEFT JOIN BIT_DB.customers cust
