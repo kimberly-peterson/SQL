@@ -1,3 +1,5 @@
+#For this project, I created a database that includes a variety of celebrities and their traits. Then, I analyzed it using SQL.
+
 CREATE TABLE celebrities (id INTEGER PRIMARY KEY, name TEXT, age INTEGER, zodiac_sign TEXT);
 
   INSERT INTO celebrities (name, age, zodiac_sign) VALUES ("Blake Lively", 36, "Virgo");
